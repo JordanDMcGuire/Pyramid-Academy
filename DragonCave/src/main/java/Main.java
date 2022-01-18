@@ -4,9 +4,11 @@
  and certain death. The user's input is handled by a simple if-else statement.
  **/
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
+
+    private static boolean inputSuccess = false;
 
     public static void main(String[] args){
 
@@ -30,10 +32,15 @@ public class Main {
 
         // Setup Scanner object and take user input
         Scanner input = new Scanner(System.in);
-        int userChoice = input.nextInt();
+        do {
+            try {
+                int userChoice = input.nextInt();
+                response(userChoice);
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid Response. Please enter 1 or 2: ");
+            }
+        } while (!inputSuccess);
 
-        // Call the response method with userChoice as a parameter
-        response(userChoice);
     }
 
     // A method to handle user input and generate a response
@@ -41,14 +48,15 @@ public class Main {
 
         // 1 and 2 produce a result. Any other integer results in a call to the input method.
         if (userChoice == 1) {
+            inputSuccess = true;
             badDecision();
         }
         else if (userChoice == 2){
+            inputSuccess = true;
             goodDecision();
         }
         else {
-            System.out.print("Invalid Response. Try again: ");
-            input();
+            throw new InputMismatchException("Only 1 and 2 are valid responses");
         }
     }
 
