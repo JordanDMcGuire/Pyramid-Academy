@@ -8,21 +8,18 @@
 
 import java.util.*;
 
-public class Main {
-
-    // Setup input
-    static Scanner input = new Scanner(System.in);
+public class GuessTheNumber {
 
     // Generate random number for answer
-    static Random generator = new Random();
-    static int correctNumber = generator.nextInt(20) + 1;
+    public static Random generator = new Random();
+    public static int correctNumber = generator.nextInt(20) + 1;
 
     // Track number of guesses
-    static int newGuess;
-    static int numberOfGuesses = 0;
+    public static int newGuess;
+    public static int numberOfGuesses = 0;
 
     // Global variable for name
-    static String userName;
+    public static String userName;
 
     public static void main(String[] args){
 
@@ -41,17 +38,48 @@ public class Main {
 
     // A method to handle the initial greeting
     public static String greeting(){
-        System.out.print("Hello! What is your name? ");
 
-        return input.nextLine();
+        System.out.print("Hello! What is your name? ");
+        Scanner greetingInput = new Scanner(System.in);
+        boolean isName = false;
+        String name = "";
+
+        do {
+            try {
+                name = greetingInput.nextLine();
+                if (!name.equals("")) {
+                    isName = true;
+                    greetingInput.reset();
+                    return name;
+                }
+                else {
+                    throw new InputMismatchException();
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid Input. Please enter your name: ");
+            }
+        } while (!isName);
+        return name;
     }
 
     // A method to handle guess retrieval
     public static int getGuess(){
-        System.out.print("Take a guess. ");
-        numberOfGuesses++;
 
-        return input.nextInt();
+        numberOfGuesses++;
+        int guess = 0;
+        boolean isNumber = false;
+
+        while (!isNumber) {
+            try {
+                Scanner getGuessInput = new Scanner(System.in);
+                System.out.println("Take a guess.");
+                guess = getGuessInput.nextInt();
+                isNumber = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid Input. Please enter a number between 1 and 20.");
+            }
+        }
+        return guess;
     }
 
     // Check if the answer is correct or incorrect
@@ -89,21 +117,24 @@ public class Main {
     public static void playAgain() {
         System.out.println("Would you like to play again? (y or n) ");
         Scanner getChoice = new Scanner(System.in);
-        String choice = getChoice.nextLine();
 
-        if (choice.equals("y")) {
-            System.out.println("Alright, " + userName + "! Let's play again!");
-            System.out.println("I am thinking of a number between 1 and 20.");
-            correctNumber = generator.nextInt(20) + 1;
-            numberOfGuesses = 0;
-            newGuess = getGuess();
-            isCorrect(newGuess);
+        try {
+            String choice = getChoice.nextLine();
+            if (choice.equals("y")) {
+                System.out.println("Alright, " + userName + "! Let's play again!");
+                System.out.println("I am thinking of a number between 1 and 20.");
+                correctNumber = generator.nextInt(20) + 1;
+                numberOfGuesses = 0;
+                newGuess = getGuess();
+                isCorrect(newGuess);
+            } else if (choice.equals("n")) {
+                System.out.println("Thank you for playing!");
+                System.exit(0);
+            } else {
+                throw new InputMismatchException();
+            }
         }
-        else if (choice.equals("n")) {
-            System.out.println("Thank you for playing!");
-            System.exit(0);
-        }
-        else {
+        catch (InputMismatchException e){
             System.out.println("Invalid Response.");
             playAgain();
         }
