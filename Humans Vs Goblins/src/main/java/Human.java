@@ -7,6 +7,15 @@ public class Human extends MapObject {
                 yPosition = iY;
 
         }
+        public Human(String i, int iX, int iY, int iS, int iH) {
+
+                name = i;
+                xPosition = iX;
+                yPosition = iY;
+                strength = iS;
+                health = iH;
+
+        }
 
 
 }

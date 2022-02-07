@@ -5,11 +5,13 @@ public class HumansVsGoblins {
 
         Map map = new Map();
 
-        MapObject testIt = new MapObject("Test", 2, 25);
-        Human human = new Human("test", 7, 25);
-        Goblin goblin = new Goblin("test1", 3, 23);
+        Human human = new Human("test", 23, 7);
+        Goblin goblin = new Goblin("test1", 19, 7);
+
+        human.collisionDetection(human, goblin);
 
         map.printMap(human, goblin);
+        human.collisionDetection(human, goblin);
 
     }
 

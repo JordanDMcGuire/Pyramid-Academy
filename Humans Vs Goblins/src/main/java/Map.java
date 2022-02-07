@@ -1,24 +1,22 @@
 public class Map {
 
-    public Map (){
-
+    public Map () {
     }
-
 
     public static void printMap(MapObject player, MapObject enemy) {
 
-        int xRows = 10;
-        int yColumns = 32;
-        char[][] playMap = new char[xRows][yColumns];
+        int yRows = 10;
+        int xColumns = 32;
+        char[][] playMap = new char[yRows][xColumns];
 
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
-        for (int i = 0; i < xRows; i++) {
-            for (int j = 0; j < yColumns; j++) {
-                if (i == player.getXPosition() && j == player.getYPosition()) {
+        for (int i = 0; i < yRows; i++) {
+            for (int j = 0; j < xColumns; j++) {
+                if (i == player.getYPosition() && j == player.getXPosition()) {
                     playMap[i][j] = '♥';
                 }
-                else if (i == enemy.getXPosition() && j == enemy.getYPosition()) {
+                else if (i == enemy.getYPosition() && j == enemy.getXPosition()) {
                     playMap[i][j] = 'X';
                 }
                 else if (j % 2 == 0){
@@ -29,8 +27,8 @@ public class Map {
                 }
             }
         }
-        for (int i = 0; i < xRows; i++) {
-            for (int j = 0; j < yColumns; j++) {
+        for (int i = 0; i < yRows; i++) {
+            for (int j = 0; j < xColumns; j++) {
                 System.out.print(playMap[i][j]);
 
             }
