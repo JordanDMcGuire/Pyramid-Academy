@@ -1,6 +1,11 @@
-public class Coordinates {
+public class Map {
 
-    public static void printMap(int x, int y) {
+    public Map (){
+
+    }
+
+
+    public static void printMap(MapObject player, MapObject enemy) {
 
         int xRows = 10;
         int yColumns = 32;
@@ -10,8 +15,11 @@ public class Coordinates {
 
         for (int i = 0; i < xRows; i++) {
             for (int j = 0; j < yColumns; j++) {
-                if (i == x && j == y) {
+                if (i == player.getXPosition() && j == player.getYPosition()) {
                     playMap[i][j] = '♥';
+                }
+                else if (i == enemy.getXPosition() && j == enemy.getYPosition()) {
+                    playMap[i][j] = 'X';
                 }
                 else if (j % 2 == 0){
                     playMap[i][j] = '|';
